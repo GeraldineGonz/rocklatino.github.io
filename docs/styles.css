@@ -1,0 +1,765 @@
+/* ==========================================================================
+   RESET & VARIABLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-box: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary-color: #FF7F0E;      /* Naranja Plotly uniforme */
+    --primary-hover: #E06B00;
+    --dark-bg: #12161A;           /* Fondo oscuro estético */
+    --dark-card: #1C2329;         /* Tarjetas oscuras */
+    --light-bg: #F8F9FA;          /* Fondo claro limpio */
+    --text-main: #2D3142;         /* Texto legible principal */
+    --text-muted: #6C757D;
+    --white: #FFFFFF;
+}
+/* ==========================================================================
+   FONDO CON IMAGEN MUSICAL Y TRANSPARENCIA
+   ========================================================================== */
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-main);
+    background-color: var(--white);
+    line-height: 1.6;
+    position: relative; /* Necesario para posicionar el fondo */
+    min-height: 100vh;
+}
+
+/* Creamos una capa exclusiva para la imagen de fondo */
+body::before {
+    content: "";
+    position: fixed; /* Se mantiene estático mientras el usuario baja por la página */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Reemplaza 'ruta-de-tu-imagen-de-guitarras.jpg' por el nombre o link de tu imagen */
+    background-image:url(imagen_fondoguitarra.webp) ; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Ajusta la transparencia aquí (0.05 es muy sutil, 0.1 aumenta la intensidad) */
+    opacity: 0.3; 
+    
+    z-index: -1; /* Envía la imagen al fondo, detrás de textos, gráficos y secciones */
+    pointer-events: none; /* Evita que interfiera con los clics o interacciones de la web */
+}
+
+/* ==========================================================================
+   BARRA DE NAVEGACIÓN (NAVBAR)
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(18, 22, 26, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.music-icon {
+    width: 28px;
+    height: 28px;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.75)), url('Tren al Sur.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding-top: 60px;
+}
+
+.overlay {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero h1 span {
+    display: block;
+    color: var(--primary-color);
+    font-weight: 300;
+    font-size: 2.2rem;
+    margin-top: 5px;
+}
+
+.hero .intro {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 35px;
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* BOTONES */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border-color: var(--white);
+}
+
+.btn-secondary:hover {
+    background-color: var(--white);
+    color: var(--dark-bg);
+    border-color: var(--white);
+}
+
+/* ==========================================================================
+   SECCIONES GENERALES
+   ========================================================================== */
+.section {
+    padding: 80px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dark {
+    background-color: var(--dark-bg);
+    color: var(--white);
+}
+
+/* Layout partido para historia */
+.layout-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.side-img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.text-content h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.text-content h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-color);
+    margin-top: 10px;
+}
+
+.text-content p {
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+}
+
+/* ==========================================================================
+   BLOQUES DE DATOS E IFRAMES
+   ========================================================================== */
+.data-block {
+    background: var(--light-bg);
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.dark .data-block {
+    background: var(--dark-card);
+}
+
+.grafico-titulo {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.descripcion {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.iframe-container {
+    position: relative;
+    width: 100%;
+    background: var(--white);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.grafico-frame {
+    width: 100%;
+    height: 500px;
+    display: block;
+}
+
+/* Grid de textos analíticos */
+.historia-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 25px;
+}
+
+.historia-item h4 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.single-text-block h4 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+.single-text-block p {
+    margin-bottom: 15px;
+}
+
+.data-grid-two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.small-iframe .grafico-frame {
+    height: 400px;
+}
+
+/* ==========================================================================
+   CITAS Y ELEMENTOS ESTÉTICOS
+   ========================================================================== */
+.custom-quote {
+    font-size: 1.5rem;
+    font-style: italic;
+    border-left: 5px solid var(--primary-color);
+    padding-left: 20px;
+    max-width: 800px;
+    margin: 30px auto;
+    text-align: left;
+}
+
+.expert-section {
+    text-align: center;
+    padding: 40px 0;
+    margin: 40px 0;
+    border-top: 1px solid #E9ECEF;
+    border-bottom: 1px solid #E9ECEF;
+}
+
+.expert-quote {
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    margin-top: 15px;
+}
+
+/* ==========================================================================
+   TARJETAS DE PROTAGONISTAS (CARDS)
+   ========================================================================== */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.card {
+    background-color: var(--dark-card);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.card-img-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.card:hover .card-img-container img {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: var(--white);
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: #A0AAB2;
+}
+
+/* ==========================================================================
+   SECCIÓN FINAL
+   ========================================================================== */
+.final {
+    background: linear-gradient(rgba(255, 127, 14, 0.9), rgba(224, 107, 0, 0.95)), url('Pateando Piedras.jpg') no-repeat center center/cover;
+    color: var(--white);
+    text-align: center;
+    padding: 100px 0;
+}
+
+.final h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.final p {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (PANTALLAS MEDIANAS Y PEQUEÑAS)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Simplificado para móviles */
+    }
+    .layout-split, .historia-grid, .data-grid-two {
+        grid-template-columns: 1fr;
+    }
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    .hero h1 span {
+        font-size: 1.6rem;
+    }
+    .section {
+        padding: 50px 0;
+    }
+}
+/* ==========================================================================
+   ESTILO TOCADISCOS DEFECTO BLINDADO - COMPATIBILIDAD TOTAL
+   ========================================================================== */
+.reproductor-vinilo-container {
+    background: #171c22 !important;
+    border: 1px solid rgba(255, 127, 14, 0.25) !important;
+    border-radius: 16px !important;
+    padding: 40px !important;
+    margin-top: 40px !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+/* Estructura en formato Tabla para forzar la visualización lateral sin colapsos */
+.reproductor-superior {
+    display: table !important;
+    width: 100% !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-bottom: 30px !important;
+    box-sizing: border-box !important;
+}
+
+.artista-izquierda {
+    display: table-cell !important;
+    vertical-align: middle !important;
+    width: 60% !important;
+    text-align: left !important;
+}
+
+.tocadiscos-derecha {
+    display: table-cell !important;
+    vertical-align: middle !important;
+    width: 40% !important;
+    text-align: right !important;
+}
+
+/* Caja contenedora del tocadiscos mecánico */
+.tocadiscos-caja {
+    display: inline-block !important;
+    position: relative !important;
+    width: 260px !important;
+    height: 260px !important;
+    background: linear-gradient(135deg, #232930 0%, #0d1117 100%) !important;
+    border-radius: 12px !important;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 8px 16px rgba(0,0,0,0.4) !important;
+    border: 2px solid #2d353f !important;
+    box-sizing: border-box !important;
+    text-align: left !important; /* Resetea la alineación interna */
+}
+
+.nombre-artista-caps {
+    font-size: 3rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    letter-spacing: 2px !important;
+    margin-top: 10px !important;
+    line-height: 1.1 !important;
+    text-transform: uppercase !important;
+}
+
+.badge-prototipo {
+    display: inline-block !important;
+    background-color: #FF7F0E !important;
+    color: #ffffff !important;
+    padding: 5px 14px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    border-radius: 50px !important;
+    letter-spacing: 1px !important;
+}
+
+/* Brazo del tocadiscos */
+.brazo-tocadiscos {
+    position: absolute !important;
+    top: 20px !important;
+    right: 30px !important;
+    width: 15px !important;
+    height: 100px !important;
+    background: #8a99a6 !important;
+    border-radius: 4px !important;
+    transform-origin: top center !important;
+    transform: rotate(22deg) !important;
+    z-index: 5 !important;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.3) !important;
+}
+.brazo-tocadiscos::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -10px !important;
+    left: -2px !important;
+    width: 20px !important;
+    height: 15px !important;
+    background: #4a5560 !important;
+    border-radius: 2px !important;
+}
+
+/* Plato base negro */
+.plato-giratorio {
+    position: absolute !important;
+    top: 20px !important;
+    left: 20px !important;
+    width: 220px !important;
+    height: 220px !important;
+    background: #000000 !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 15px rgba(0,0,0,0.9) !important;
+}
+
+/* Disco de Vinilo propiamente tal */
+.disco-vinilo-interactivo {
+    position: absolute !important;
+    top: 5px !important;
+    left: 5px !important;
+    width: 210px !important;
+    height: 210px !important;
+    background: radial-gradient(circle, #333333 10%, #0a0a0a 60%, #000000 100%) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 12px rgba(0,0,0,0.9) !important;
+    animation: rotarVinilo 8s linear infinite !important;
+}
+
+/* Surcos circulares del acetato */
+.lineas-vinilo {
+    position: absolute !important;
+    top: 15px !important;
+    left: 15px !important;
+    width: 180px !important;
+    height: 180px !important;
+    border-radius: 50% !important;
+    border: 1px dashed rgba(255, 255, 255, 0.2) !important;
+}
+.disco-vinilo-interactivo::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 40px !important;
+    left: 40px !important;
+    width: 130px !important;
+    height: 130px !important;
+    border-radius: 50% !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Centro de color naranja permanente */
+.etiqueta-centro-naranja {
+    position: absolute !important;
+    top: 67px !important;
+    left: 67px !important;
+    width: 75px !important;
+    height: 75px !important;
+    background-color: #FF7F0E !important; 
+    border-radius: 50% !important;
+    border: 3px solid #000000 !important;
+    z-index: 2 !important;
+}
+
+.agujero-centro {
+    position: absolute !important;
+    top: 28px !important;
+    left: 28px !important;
+    width: 14px !important;
+    height: 14px !important;
+    background-color: #171c22 !important;
+    border-radius: 50% !important;
+    border: 2px solid #000000 !important;
+}
+
+/* Animación de rotación */
+@keyframes rotarVinilo {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Bloque del Título de la Canción (Abajo) */
+.reproductor-cancion-titulo {
+    text-align: center !important;
+    margin: 35px 0 !important;
+    padding: 15px 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.titulo-cancion-destacado {
+    font-size: 2.4rem !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    margin-bottom: 5px !important;
+}
+
+.ano-lanzamiento {
+    color: #FF7F0E !important;
+    font-size: 1.1rem !important;
+    font-weight: 300 !important;
+}
+
+/* Bloque Inferior Informativo */
+.reproductor-informacion-detallada {
+    display: table !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.texto-resena-adn {
+    display: table-cell !important;
+    vertical-align: top !important;
+    width: 50% !important;
+    padding-right: 25px !important;
+    box-sizing: border-box !important;
+}
+
+.texto-resena-adn h4 {
+    color: #FF7F0E !important;
+    font-size: 1.3rem !important;
+    margin-bottom: 15px !important;
+}
+
+.texto-resena-adn p {
+    color: #A0AAB2 !important;
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+    text-align: justify !important;
+}
+
+/* Consola de Barras */
+.consola-atributos {
+    display: table-cell !important;
+    vertical-align: top !important;
+    width: 50% !important;
+    background: #0f1318 !important;
+    padding: 25px !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255,255,255,0.05) !important;
+    box-sizing: border-box !important;
+}
+
+.descripcion-consola {
+    font-size: 0.85rem !important;
+    color: #718096 !important;
+    margin-bottom: 20px !important;
+}
+
+.control-progreso {
+    margin-bottom: 18px !important;
+    cursor: pointer !important;
+}
+
+.label-progreso {
+    display: flex !important;
+    justify-content: space-between !important;
+    font-size: 0.9rem !important;
+    color: #E2E8F0 !important;
+    margin-bottom: 6px !important;
+}
+
+.barra-base {
+    width: 100% !important;
+    height: 8px !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+}
+
+.barra-relleno {
+    height: 100% !important;
+    background-color: #FF7F0E !important;
+    border-radius: 4px !important;
+    transition: all 0.3s ease !important;
+}
+
+.control-progreso:hover .label-progreso { color: #FF7F0E !important; }
+.control-progreso:hover .barra-relleno {
+    background-color: #ff9433 !important;
+    box-shadow: 0 0 10px #FF7F0E !important;
+}
+
+.pantalla-consola {
+    margin-top: 25px !important;
+    background: #090c0f !important;
+    border: 1px solid rgba(255, 127, 14, 0.3) !important;
+    padding: 15px !important;
+    border-radius: 6px !important;
+    min-height: 60px !important;
+    display: block !important;
+}
+
+#texto-consola {
+    font-size: 0.85rem !important;
+    color: #00ff66 !important;
+    font-family: monospace !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+}
+
+/* Adaptación Mobile */
+@media (max-width: 768px) {
+    .reproductor-superior, .reproductor-informacion-detallada {
+        display: block !important;
+    }
+    .artista-izquierda, .tocadiscos-derecha, .texto-resena-adn, .consola-atributos {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        padding-right: 0 !important;
+        margin-bottom: 25px !important;
+    }
+}
+
